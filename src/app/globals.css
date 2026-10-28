@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #6366f1 100%);
+    --grad-success: linear-gradient(135deg, #10b981, #06b6d4);
+    --grad-warm: linear-gradient(135deg, #f59e0b, #ef4444);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-surface text-ink antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04";
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-900;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300;
+    border: 2px solid #f8fafc;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-400 ring-offset-2 ring-offset-surface;
+  }
+
+  /* Respect prefers-reduced-motion: kill decorative animation */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #6366f1, #8b5cf6, #06b6d4);
+    background-size: 200% auto;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lift;
+  }
+
+  .input-base {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-slate-400
+      transition-colors focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-200
+      disabled:cursor-not-allowed disabled:bg-slate-50;
+  }
+
+  .label-base {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  .btn-shine:hover::after {
+    transform: translateX(100%);
+  }
+
+  /* Hand-rolled prose (lesson content) — no typography plugin dependency */
+  .prose-cc {
+    @apply text-[15px] leading-7 text-slate-700;
+  }
+  .prose-cc h1 {
+    @apply mt-8 mb-3 text-2xl font-bold text-ink;
+  }
+  .prose-cc h2 {
+    @apply mt-7 mb-2.5 text-xl font-semibold text-ink;
+  }
+  .prose-cc h3 {
+    @apply mt-5 mb-2 text-lg font-semibold text-ink;
+  }
+  .prose-cc p {
+    @apply my-3;
+  }
+  .prose-cc ul {
+    @apply my-3 list-disc space-y-1.5 pl-6;
+  }
+  .prose-cc ol {
+    @apply my-3 list-decimal space-y-1.5 pl-6;
+  }
+  .prose-cc a {
+    @apply font-medium text-primary-600 underline decoration-primary-300 underline-offset-2 hover:text-primary-700;
+  }
+  .prose-cc strong {
+    @apply font-semibold text-ink;
+  }
+  .prose-cc code {
+    @apply rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[13px] text-primary-700;
+  }
+  .prose-cc pre {
+    @apply my-4 overflow-x-auto rounded-xl bg-ink p-4 text-[13px] leading-6 text-slate-100;
+  }
+  .prose-cc pre code {
+    @apply bg-transparent p-0 text-slate-100;
+  }
+  .prose-cc blockquote {
+    @apply my-4 border-l-4 border-primary-300 bg-primary-50 py-2 pl-4 pr-3 text-slate-600 italic;
+  }
+  .prose-cc table {
+    @apply my-4 w-full text-left text-sm;
+  }
+  .prose-cc th {
+    @apply border-b border-slate-200 px-3 py-2 font-semibold text-ink;
+  }
+  .prose-cc td {
+    @apply border-b border-slate-100 px-3 py-2;
+  }
+  .prose-cc hr {
+    @apply my-6 border-slate-200;
+  }
+
+  /* Code editor */
+  .code-editor {
+    @apply w-full resize-none bg-transparent font-mono text-[13px] leading-6 text-slate-100 outline-none;
+    tab-size: 2;
+  }
+
+  .skeleton {
+    @apply animate-pulse rounded-lg bg-slate-200/70;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(99 102 241 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(99 102 241 / 0.06) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .bg-blob {
+    filter: blur(70px);
+  }
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { scrollbar-width: none; }
+}
